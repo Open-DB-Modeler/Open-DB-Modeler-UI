@@ -25,3 +25,15 @@ steps:
     yarn build --prod
   displayName: 'yarn install and build'
   workingDirectory: app
+
+- task: FtpUpload@2
+  inputs:
+    credentialsOption: 'serviceEndpoint'
+    serverEndpoint: 'dev.opendbmodeler.io'
+    rootDirectory: 'app/dist'
+    filePatterns: '**'
+    remoteDirectory: '/'
+    clean: true
+    preservePaths: false
+    trustSSL: false
+  displayName: 'Upload to webserver'
